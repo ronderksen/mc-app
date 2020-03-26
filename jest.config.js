@@ -2,6 +2,7 @@ const {defaults} = require('jest-config');
 
 module.exports = {
   roots: [
+    '<rootDir>/cards',
     '<rootDir>/pages',
     '<rootDir>/lib'
   ],

@@ -1,5 +1,5 @@
 import {EventBus} from './event-bus';
-import {Events} from '../events';
+import {Events} from '../constants/events';
 
 describe('Event Bus', () => {
   let eventBus = null;

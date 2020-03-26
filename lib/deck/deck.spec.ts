@@ -1,46 +1,47 @@
-import {Deck, Card} from './index';
+import {Card, Deck} from './index';
+import {CardTypes, Locations} from "../constants";
 
 describe('class: Deck', () => {
   let deck;
 
   const buildCardSet = (count) => {
-    return [...Array(count)].map((x, i) => new Card(i, `card ${i}`));
+    return [...Array(count)].map((x, i) => new Card({ type: CardTypes.EVENT, id: `${i}`, title: `card ${i}`, allowedActions: [] }));
   };
 
   beforeEach(() => {
-    deck = new Deck(buildCardSet(40));
+    deck = new Deck(buildCardSet(40), Locations.PLAYER_DRAW_DECK);
   });
 
   it('should be possible to draw one card from the deck', () => {
-    expect(deck.draw()).toEqual(new Card(39, 'card 39'));
-    expect(deck.size()).toEqual(39);
+    expect(deck.draw().id).toBe('39');
+    expect(deck.size).toEqual(39);
   });
 
   it('should be possible to draw multiple cards from the deck', () => {
     const fiveCards = deck.draw(5);
-    expect(fiveCards.size()).toBe(5);
-    expect(fiveCards.draw()).toEqual(new Card(39, 'card 39'));
-    expect(fiveCards.draw()).toEqual(new Card(38, 'card 38'));
-    expect(fiveCards.draw()).toEqual(new Card(37, 'card 37'));
-    expect(fiveCards.draw()).toEqual(new Card(36, 'card 36'));
-    expect(fiveCards.draw()).toEqual(new Card(35, 'card 35'));
-    expect(deck.size()).toBe(35);
+    expect(fiveCards.length).toBe(5);
+    expect(fiveCards[0].id).toBe('35');
+    expect(fiveCards[1].id).toBe('36');
+    expect(fiveCards[2].id).toBe('37');
+    expect(fiveCards[3].id).toBe('38');
+    expect(fiveCards[4].id).toBe('39');
+    expect(deck.size).toBe(35);
   });
 
   it('should return null if the draw deck is empty', () => {
-    const emptyDeck = new Deck();
+    const emptyDeck = new Deck([], Locations.PLAYER_DRAW_DECK);
     expect(emptyDeck.draw()).toBeNull();
   });
 
   it('should be possible to add cards to the deck', () => {
-    const card = new Card(40, 'card 40');
+    const card = new Card({ type: CardTypes.EVENT, id: '40', title: 'card 40', allowedActions: [] });
     deck.addCard(card);
-    expect(deck.size()).toBe(41);
+    expect(deck.size).toBe(41);
     expect(deck.draw()).toEqual(card);
   });
 
   it('should be possible to shuffle the deck', () => {
     deck.shuffle(5);
-    expect(deck.draw()).not.toEqual(new Card(39, 'card 39'));
+    expect(deck.draw()).not.toEqual(new Card({ type: CardTypes.EVENT, id: '39', title: 'card 39', allowedActions: [] }));
   });
 });

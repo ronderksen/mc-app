@@ -1,2 +1,2 @@
 export {Deck} from './deck';
-export {Card} from './card';
+export {Card} from '../card/card';

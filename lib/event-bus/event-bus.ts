@@ -1,4 +1,4 @@
-import {Events} from "../events";
+import {Events} from "../constants/events";
 
 export class EventBus {
   subscriptions = new Map();
