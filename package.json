@@ -9,7 +9,7 @@
     "build:static": "next build && next out"
   },
   "dependencies": {
-    "next": "^9.1.5",
+    "next": "^11.1.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
